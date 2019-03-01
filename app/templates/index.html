@@ -3,7 +3,7 @@
 <!-- Styles block -->
 {% block styles%}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='static/index.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='CSS/index.css')}}">
 {% endblock %}
 {% block content %}
 <div class="container-fluid mt-3" text-align="center">
@@ -11,35 +11,36 @@
   <div class="selectpitch">
 
     <a href="{{url_for('main.pickup_line')}}">Pickup Lines|</a>
-    <a href="{{url_for('main.business')}}">Business Pitch|</a>
+    <a href="{{url_for('main.business')}}">Business |</a>
     <a href="{{url_for('main.jobs')}}"> Jobs Pitch|</a>
-    <a href="{{url_for('main.promotion')}}"> Promotion pitch</a>
+    <a href="{{url_for('main.promotion')}}">Promotion</a>
     <hr>
   </div>
-  {{macro.displayPitchList(pitch)}}
 
-</div>
-<p>Already signed in? Write a pitch <a href="/new">here</a>.</p>
-</div>
-{% for pitch in all_pitches%}
 
-<p class="card-title"><strong>Category:
-  </strong>{{pitch.title}}</p>
-<!-- <p class="card-text">{{pitch.category}}</p> -->
-<p class="card-text"><strong>Add a pitch:</strong> {{pitch.content}}</p>
-<p class="card-text"><strong>{{pitch.user}}</strong></p>
-<p><a href='/new/comment/'>comment</a>.</p>
-<div class="voting_kochi" id="1012">
+  {% for pitch in all_pitches%}
+  <div class="postpitch">
+    <p class="card-title"><strong>Category:
+      </strong>{{pitch.title}}</p>
+    <!-- <p class="card-text">{{pitch.category}}</p> -->
+    <p class="card-text"><strong>Add a pitch:</strong> {{pitch.content}}</p>
+    <p class="card-text"><strong>{{pitch.user}}</strong></p>
 
-  <div class="voting_btn">
-    <div class="up_button">&nbsp;</div><span class="up_votes">upvotes :0</span>
+    {% for comment in pitch.comment %}
+    <p>comment:{{comment.description}}</p>
+
+    {%endfor%}
   </div>
-  <div class="voting_btn">
-    <div class="down_button">&nbsp;</div><span class="down_votes">downvotes:0</span>
+  <div class="voting_kochi" id="1012">
+    <div class="voting_btn">
+
+      <p><a href='/comment/new/{{pitch.id}}'>comment</a></p>
+      <button class="up_button"><a href='/vote'>upvote</a></button>
+      <button class="up_button"><a href='/vote'>downvote</a> </button>
+    </div>
   </div>
+  <p>Already signed in? Write a pitch <a href="/new">here</a>.</p>
 
+  {% endfor %}
 </div>
-{% endfor %}
-
-
 {% endblock%}

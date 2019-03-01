@@ -4,13 +4,12 @@
 
 <div class="col-md-4">
 
-  {{ wtf.quick_form(comment_form) }}
+  {{ wtf.quick_form(description_form) }}
   {% for comment in all_pitches%}
   <p class="card-title">{{comment.username}}</p>
 
   <p class="card-text">{{comment.description}}</p>
 
 </div>
-
-{% endblock %}
 {% endfor %}
+{% endblock %}

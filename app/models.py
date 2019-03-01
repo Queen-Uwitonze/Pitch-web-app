@@ -72,6 +72,18 @@ class Comment(db.Model):
     def __repr__(self):
         return f'User {self.name}'
 
-    def save_pitch(self):
+    def save_comments(self):
        db.session.add(self)
        db.session.commit()
+     
+    @classmethod
+    def get_comments(id):
+       descriptions = Comment.query.filter_by(pitch_id=id).all()
+       return descriptions
+
+    @classmethod
+    def get_all_comments(cls,id):
+       descriptions = Comment.query.order_by('id').all()
+       return description
+
+                

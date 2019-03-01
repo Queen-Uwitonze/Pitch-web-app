@@ -7,11 +7,13 @@ class PitchForm(FlaskForm):
     title = StringField('pitch title',validators=[Required()])
     content= TextAreaField('add pitch', validators=[Required()])
     username = TextAreaField('author', validators=[Required()])
+    upvote = SubmitField('upvote',validators=[Required()])
+    downvote = SubmitField('downvote',validators=[Required()])
     submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
 
-    comment= TextAreaField('comment', validators=[Required()])
+    description= TextAreaField('comment', validators=[Required()])
     submit = SubmitField('Submit')
 
 class UpdateProfile(FlaskForm):

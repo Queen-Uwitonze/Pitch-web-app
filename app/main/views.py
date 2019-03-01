@@ -20,6 +20,7 @@ def index():
 
     title = 'Home- Welcome'
     all_pitches = Pitch.get_pitches()
+    
     return render_template('index.html', title = title,all_pitches=all_pitches)
 
 def profile(uname):
@@ -93,7 +94,7 @@ def profile(uname):
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user=user)
+    return render_template("profile/profile.html", user=user,pitch_form=pitch_form)
 
 @main.route('/new', methods=['GET', 'POST'])
 @login_required
@@ -114,19 +115,25 @@ def new_pitch():
 
     return render_template('new_pitch.html', pitch_form=pitch_form)
 
-@main.route('/comment/new/', methods=['GET', 'POST'])
+@main.route('/comment/new/<int:id>', methods=['GET', 'POST'])
 @login_required
 def comment(id):
-    comment_form = CommentForm()
-    
+    description_form = CommentForm()
+
     pitch = Pitch.query.get(id)
 
-    if comment_form.validate_on_submit():
-        comment = comment_form.comment.data
-        category=category
-        new_comment = Comment(comment=comment,user_id=user_id)
-        new_comment.save_comment()
+    if description_form.validate_on_submit():
+        description = description_form.description.data
+        new_comment = Comment(description=description,user_id=current_user.id,pitch_id = pitch.id )
+        new_comment.save_comments() 
         return redirect(url_for('main.index'))
 
-    return render_template('comment.html',comment_form=comment_form)
+    return render_template('comment.html',description_form=description_form)
     
+@main.route('/vote', methods=['POST'])
+def vote():
+    data = simplejson.loads(request.data)
+    update_item(c, [data['member']])
+    output = select_all_items(c, [data['member']])
+    pusher.trigger(u'poll', u'vote', output)
+    return request.data
