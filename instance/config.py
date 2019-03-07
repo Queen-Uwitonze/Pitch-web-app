@@ -1,3 +1,3 @@
-
+API-KEY="AIzaSyAt9PFcZklUveOfa6E7KYzLYLSQvGGfmqw"
 SECRET_KEY = 'wito'
 

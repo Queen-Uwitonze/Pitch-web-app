@@ -104,9 +104,8 @@ def new_pitch():
     if pitch_form.validate_on_submit():
         title = pitch_form.title.data
         content  = pitch_form.content.data
-        username  = pitch_form.username.data
         category = pitch_form.category.data
-        upvote = pitch_form.category.data
+        # upvote = pitch_form.category.data
         user_id = pitch_form.user_id.data
         new_pitch = Pitch(title=title,content=content,category=category,user_id=current_user.id)
         new_pitch.save_pitch() 

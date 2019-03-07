@@ -6,9 +6,9 @@ class PitchForm(FlaskForm):
     category = StringField('category',validators=[Required()])
     title = StringField('pitch title',validators=[Required()])
     content= TextAreaField('add pitch', validators=[Required()])
-    username = TextAreaField('author', validators=[Required()])
-    upvote = SubmitField('upvote',validators=[Required()])
-    downvote = SubmitField('downvote',validators=[Required()])
+    user_id = TextAreaField('author', validators=[Required()])
+    # upvote = SubmitField('upvote',validators=[Required()])
+    # downvote = SubmitField('downvote',validators=[Required()])
     submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
